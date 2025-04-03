@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProyectoIntegradorMVVM.Views.PantallaPrincipal"
+             xmlns:vm="clr-namespace:ProyectoIntegradorMVVM.ViewModels"
+             Title="PantallaPrincipal"
+             NavigationPage.HasNavigationBar="False">
+
+    <ContentPage.BindingContext>
+        <vm:PantallaPrincipalViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <Grid RowDefinitions="Auto, *, Auto">
+            <!-- Sección superior con curva -->
+            <Frame HeightRequest="300"
+               CornerRadius="30"
+               Margin="0,-50,0,0"
+               Padding="40,50,30,30"
+               HorizontalOptions="FillAndExpand"
+               BackgroundColor="#556B2F">
+                <VerticalStackLayout>
+
+                    <Label/>
+                    <Label/>
+                    <Label Text="¡Hola, Nicol!" FontSize="28" TextColor="White" FontAttributes="Bold"/>
+                    <Label Text="Martes, 04 Marzo 2025" FontSize="14" TextColor="White"/>
+                    
+                    <!-- Barra de búsqueda  -->
+                    <Frame BackgroundColor="White" CornerRadius="20" Padding="10" Margin="0,15,0,0">
+                        <HorizontalStackLayout>
+                            <Label></Label>
+                            <Image Source="https://i.ibb.co/spdVDQLM/image.png" WidthRequest="20" HeightRequest="20" />
+                            <Entry Placeholder="Buscar invernadero..." TextColor="#8F9779" PlaceholderColor="Gray"/>
+                            <Button Text="Buscar" BackgroundColor="#6C8064" TextColor="White" CornerRadius="10" WidthRequest="0"/>
+                        </HorizontalStackLayout>
+                    </Frame>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Contenido principal -->
+            <VerticalStackLayout Grid.Row="1" Padding="20">
+                <HorizontalStackLayout Margin="0,0,0,10">
+                    <Label Text="Tus Invernaderos" FontSize="22" TextColor="#556B2F" FontAttributes="Bold"/>
+                </HorizontalStackLayout>
+
+                <!-- Lista de invernaderos -->
+                <VerticalStackLayout Spacing="15">
+                    <Frame BackgroundColor="#EEF5E1" CornerRadius="20" Padding="15" BorderColor="#556B2F" HasShadow="True">
+                        <VerticalStackLayout>
+                            <Image Source="https://i.ibb.co/v6KRDrCT/tomate.jpg" HeightRequest="150" Aspect="AspectFill" />
+                            <Label Text="Invernadero 1" FontSize="18" TextColor="#556B2F" FontAttributes="Bold"/>
+                            <Label Text="Tomate" FontSize="16" TextColor="#8F9779"/>
+                            <Label Text="Ciudad Obregón, Sonora" FontSize="14" TextColor="#556B2F"/>
+                            <Button Text="Ver Detalles" BackgroundColor="#6C8064" TextColor="White" CornerRadius="10" Padding="10" Clicked="Ir_Detalle"/>
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <Frame BackgroundColor="#EEF5E1" CornerRadius="20" Padding="15" BorderColor="#556B2F" HasShadow="True">
+                        <VerticalStackLayout>
+                            <Image Source="https://i.ibb.co/jZ3btYzK/lechuga.jpg" HeightRequest="150" Aspect="AspectFill"/>
+                            <Label Text="Invernadero 2" FontSize="18" TextColor="#556B2F" FontAttributes="Bold"/>
+                            <Label Text="Lechuga" FontSize="16" TextColor="#8F9779"/>
+                            <Label Text="Ciudad Obregón, Sonora" FontSize="14" TextColor="#556B2F"/>
+                            <Button Text="Ver Detalles" BackgroundColor="#6C8064" TextColor="White" CornerRadius="10" Padding="10"/>
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <Frame BackgroundColor="#EEF5E1" CornerRadius="20" Padding="15" BorderColor="#556B2F" HasShadow="True">
+                        <VerticalStackLayout>
+                            <Image Source="https://i.ibb.co/v6KRDrCT/tomate.jpg" HeightRequest="150" Aspect="AspectFill"/>
+                            <Label Text="Invernadero 3" FontSize="18" TextColor="#556B2F" FontAttributes="Bold"/>
+                            <Label Text="Tomate" FontSize="16" TextColor="#8F9779"/>
+                            <Label Text="Ciudad Obregón, Sonora" FontSize="14" TextColor="#556B2F"/>
+                            <Button Text="Ver Detalles" BackgroundColor="#6C8064" TextColor="White" CornerRadius="10" Padding="10"/>
+                        </VerticalStackLayout>
+                    </Frame>
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+
+            <!-- Botón flotante -->
+            <Grid Grid.Row="2" Padding="20">
+                <Button Text="+"
+                    BackgroundColor="#556B2F"
+                    TextColor="White"
+                    FontSize="30"
+                    CornerRadius="50"
+                    WidthRequest="70"
+                    HeightRequest="70"
+                    HorizontalOptions="End"
+                    VerticalOptions="End"
+                    Clicked="Ir_AgregarInvernadero"/>
+            </Grid>
+        </Grid>
+    </ScrollView>
+</ContentPage>

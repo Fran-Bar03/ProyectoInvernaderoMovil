@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProyectoIntegradorMVVM.Views.AgregarInvernadero"
+             xmlns:vm="clr-namespace:ProyectoIntegradorMVVM.ViewModels"
+             Title="AgregarInvernadero"
+             NavigationPage.HasNavigationBar="False">
+
+    <ContentPage.BindingContext>
+        <vm:AgregarInvernaderoViewModel />
+    </ContentPage.BindingContext>
+    
+    <ScrollView>
+        <VerticalStackLayout>
+            
+            <Frame BackgroundColor="#576b43"
+            HeightRequest="325"
+            CornerRadius="45"
+            Margin="-2,-40,-2,15"
+            Padding="0"
+            HorizontalOptions="Fill">
+
+                <StackLayout>
+                    <Image Source="https://imgfz.com/i/ujKBGbN.png" HeightRequest="25" Margin="0,60,-420,0"/>
+                    <Image Source="https://imgfz.com/i/gZRFkjf.png" HeightRequest="25" Margin="0,-25,350,0"/>
+                    <Label Text="Vamos!"
+                   TextColor="White"
+                   FontSize="40"
+                   Margin="45,-10,0,0"/>
+                    <Label Text="Agrega"
+            TextColor="White"
+                   FontAttributes="Bold"
+            FontSize="40"
+            Margin="45,-10,0,0"/>
+                    <Label Text="un nuevo"
+            TextColor="White"
+            FontAttributes="Bold"
+            FontSize="40"
+            Margin="45,-10,0,0"/>
+                    <Label Text="invernadero"
+            TextColor="White"
+            FontAttributes="Bold"
+            FontSize="40"
+            Margin="45,-10,0,0"/>
+                </StackLayout>
+
+            </Frame>
+
+            <Frame Padding="10"
+           CornerRadius="50"
+           BorderColor="Black"
+           Margin="15,0,15,10">
+                <Grid>
+                    <Image Source="https://imgfz.com/i/XbLD5ue.png"
+            VerticalOptions="Center"
+            HorizontalOptions="Start"
+            WidthRequest="20"
+            HeightRequest="20" 
+            Margin="10,0,0,0"/>
+
+                    <Entry Placeholder="Nombre del Invernadero"
+                   PlaceholderColor="Black"
+                   Keyboard="Text"
+                   HeightRequest="50"
+                   Margin="30,0,0,0"/>
+                </Grid>
+            </Frame>
+
+
+            <Frame Padding="10"
+           CornerRadius="50"
+           BorderColor="Black"
+           Margin="15,0,15,10">
+                <Grid>
+                    <Image Source="https://imgfz.com/i/oU7f8Np.png"
+            VerticalOptions="Center"
+            HorizontalOptions="Start"
+            WidthRequest="20"
+            HeightRequest="20" 
+            Margin="10,0,0,0"/>
+
+                    <Entry Placeholder="Nombre de la planta"
+            PlaceholderColor="Black"
+            Keyboard="Text"
+            HeightRequest="50"
+            Margin="30,0,0,0"/>
+                </Grid>
+            </Frame>
+
+            <Frame Padding="10"
+           CornerRadius="50"
+           BorderColor="Black"
+           Margin="15,0,15,10">
+                <Grid>
+                    <Image Source="https://imgfz.com/i/nRaJuh9.png"
+            VerticalOptions="Center"
+            HorizontalOptions="Start"
+            WidthRequest="20"
+            HeightRequest="20" 
+            Margin="10,0,0,0"/>
+
+                    <Entry Placeholder="Tipo de planta"
+            PlaceholderColor="Black"
+            Keyboard="Text"
+            HeightRequest="50"
+            Margin="30,0,0,0"/>
+
+                </Grid>
+
+            </Frame>
+
+
+            <Frame Padding="10"
+           CornerRadius="50"
+           BorderColor="Black"
+           Margin="15,0,15,10">
+                <Grid>
+                    <Image Source="https://imgfz.com/i/9TrVNFQ.png"
+            VerticalOptions="Center"
+            HorizontalOptions="Start"
+            WidthRequest="20"
+            HeightRequest="20" 
+            Margin="10,0,0,0"/>
+
+                    <Entry Placeholder="Agregar imagen"
+            PlaceholderColor="Black"
+            Keyboard="Text"
+            HeightRequest="50"
+            Margin="30,0,0,0"/>
+                </Grid>
+            </Frame>
+
+            <Button Text="                                Agregar                               " 
+            BackgroundColor="#576b43" 
+            TextColor="White" 
+            FontAttributes="Bold" 
+            CornerRadius="50"
+            HorizontalOptions="CenterAndExpand"
+            BorderColor="White"
+            HeightRequest="60"
+            Margin="0,40,0,40"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
