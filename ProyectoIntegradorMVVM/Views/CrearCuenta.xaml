@@ -5,10 +5,8 @@
              xmlns:vm="clr-namespace:ProyectoIntegradorMVVM.ViewModels"
              Title="CrearCuenta"
              NavigationPage.HasNavigationBar="False">
+    
 
-    <ContentPage.BindingContext>
-        <vm:CrearCuentaViewModel />
-    </ContentPage.BindingContext>
 
     <ScrollView>
         <VerticalStackLayout>
@@ -59,7 +57,7 @@
                            Keyboard="Text"
                            HeightRequest="50"
                            Margin="30,0,0,0"
-                           TextChanged="OnNombreChanged"/>
+                           Text="{Binding NombreCompleto}"/>
                 </Grid>
             </Frame>
 
@@ -80,7 +78,7 @@
                            Keyboard="Text"
                            HeightRequest="50"
                            Margin="30,0,0,0"
-                           TextChanged="OnEmailChanged"/>
+                           Text="{Binding Email}"/>
                 </Grid>
             </Frame>
 
@@ -102,12 +100,11 @@
                            IsPassword="True"
                            HeightRequest="50"
                            Margin="30,0,0,0"
-                           TextChanged="OnPasswordChanged"/>
+                           Text="{Binding Contrasena}"/>
                     <ImageButton x:Name="BtnTogglePassword"
                                  Source="eye_icon.png"
                                  HorizontalOptions="End"
                                  VerticalOptions="Center"
-                                 Clicked="TogglePasswordVisibility"
                                  WidthRequest="25"
                                  HeightRequest="25"/>
                 </Grid>
@@ -131,7 +128,7 @@
                            IsPassword="True"
                            HeightRequest="50"
                            Margin="30,0,0,0"
-                           TextChanged="OnConfirmPasswordChanged"/>
+                           Text="{Binding ConfirmarContrasena}"/>
                 </Grid>
             </Frame>
 
@@ -141,7 +138,7 @@
                    HorizontalOptions="Center"/>
 
             <Button x:Name="BtnRegistrarse"
-                    Text="          Registrarse         "
+                    Text=" Registrarse "
                     BackgroundColor="#576b43"
                     TextColor="White"
                     FontAttributes="Bold"
@@ -150,7 +147,7 @@
                     BorderColor="White"
                     HeightRequest="60"
                     Margin="0,10,0,40"
-                    Clicked="Ir_PantallaPrincipal"
+                    Command="{Binding CrearCuentaCommand}"
                     IsEnabled="False"/>
 
             <Label Text="¿Ya tienes una cuenta?"
@@ -162,7 +159,7 @@
                    FontSize="10"
                    FontAttributes="Bold">
                 <Label.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="Loginn"/>
+                    <TapGestureRecognizer Command="{Binding IrLoginCommand}"/>
                 </Label.GestureRecognizers>
             </Label>
 

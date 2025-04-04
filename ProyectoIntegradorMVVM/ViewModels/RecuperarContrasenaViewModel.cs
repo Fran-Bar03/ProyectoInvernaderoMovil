@@ -19,7 +19,7 @@ namespace ProyectoIntegradorMVVM.ViewModels
   public class RecuperarContrasenaViewModel : BaseViewModel 
   {
     private readonly HttpClient _httpclient;
-    private const string ApiUrl = "https://z7zsd20t-5148.usw3.devtunnels.ms/api/Usuario/EnviarCodigo";
+    private const string ApiUrl = "https://3j8hk6ww-5148.usw3.devtunnels.ms/api/Usuario/EnviarCodigo";
 
 
     private string _email;

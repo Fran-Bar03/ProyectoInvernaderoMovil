@@ -36,7 +36,8 @@
                         <Grid>
                             <Image Source="https://imgfz.com/i/VlRLZru.png" WidthRequest="26" Margin="-337,0,0,0"/>
                             <Entry x:Name="NuevaClave" Placeholder="Introduce tu nueva contraseña"
-                                   PlaceholderColor="White" Margin="20,0,0,0" TextColor="White" IsPassword="True"/>
+                                   PlaceholderColor="White" Margin="20,0,0,0" TextColor="White" IsPassword="True"
+                                   Text="{Binding NuevaContrasena}"/>
                             <ImageButton x:Name="BtnVerClave"
                                          Source="eye_icon.png"
                                          WidthRequest="30"
@@ -55,7 +56,8 @@
                         <Grid>
                             <Image Source="https://imgfz.com/i/VlRLZru.png" WidthRequest="26" Margin="-337,0,0,0"/>
                             <Entry x:Name="ConfirmarClave" Placeholder="Confirma tu contraseña"
-                                   PlaceholderColor="White" Margin="20,0,0,0" TextColor="White" IsPassword="True"/>
+                                   PlaceholderColor="White" Margin="20,0,0,0" TextColor="White" IsPassword="True"
+                                   Text="{Binding ConfirmarContrasena}"/>
                             <ImageButton x:Name="BtnVerConfirmarClave"
                                          Source="eye_icon.png"
                                          WidthRequest="30"
@@ -84,6 +86,7 @@
                             HorizontalOptions="Fill"
                             BackgroundColor="#7a9255"
                             FontSize="18"
+                            Command="{Binding CambiarContrasenaCommand}"
                             />
 
                 </StackLayout>
@@ -95,7 +98,7 @@
                    TextColor="White"
                    TextDecorations="Underline">
                 <Label.GestureRecognizers>
-                    <TapGestureRecognizer />
+                    <TapGestureRecognizer Command="{Binding IrLoginCommand}"/>
                 </Label.GestureRecognizers>
             </Label>
 
