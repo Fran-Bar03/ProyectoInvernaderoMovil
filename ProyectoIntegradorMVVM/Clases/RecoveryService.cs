@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace ProyectoIntegradorMVVM.Clases {
   public class RecoveryService 
@@ -54,6 +55,19 @@ namespace ProyectoIntegradorMVVM.Clases {
         Console.WriteLine ($"Error al eliminar el recovery token: {ex.Message}");
       }
     }
-  }
+
+     /// <summary>
+        /// Extrae el email desde el token de recuperación.
+        /// </summary>
+        public static string ObtenerEmailDesdeToken(string token)
+        {
+            var handler = new JwtSecurityTokenHandler();
+            var jwtToken = handler.ReadJwtToken(token);
+
+            var emailClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == "Email");
+            return emailClaim?.Value; // Retorna el email o null si no existe
+        }
+       
+    }
 }
 

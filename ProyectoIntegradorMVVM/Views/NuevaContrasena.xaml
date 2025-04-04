@@ -44,7 +44,7 @@
                                          HorizontalOptions="End"
                                          VerticalOptions="Center"
                                          Margin="0,0,10,0"
-                                         Clicked="ToggleNuevaClaveVisibility"/>
+                                         />
                         </Grid>
                     </Frame>
 
@@ -63,7 +63,7 @@
                                          HorizontalOptions="End"
                                          VerticalOptions="Center"
                                          Margin="0,0,10,0"
-                                         Clicked="ToggleConfirmarClaveVisibility"/>
+                                         />
                         </Grid>
                     </Frame>
 
@@ -84,7 +84,7 @@
                             HorizontalOptions="Fill"
                             BackgroundColor="#7a9255"
                             FontSize="18"
-                            Clicked="GuardarContrasena_Clicked"/>
+                            />
 
                 </StackLayout>
             </Frame>
@@ -95,7 +95,7 @@
                    TextColor="White"
                    TextDecorations="Underline">
                 <Label.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="Ir_Login"/>
+                    <TapGestureRecognizer />
                 </Label.GestureRecognizers>
             </Label>
 

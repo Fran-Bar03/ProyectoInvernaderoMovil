@@ -1,3 +1,5 @@
+using ProyectoIntegradorMVVM.ViewModels;
+
 namespace ProyectoIntegradorMVVM.Views;
 
 public partial class IngresarCodigo : ContentPage
@@ -5,9 +7,11 @@ public partial class IngresarCodigo : ContentPage
     public IngresarCodigo()
     {
         InitializeComponent();
+        ValidarCodigoViewModel validarCodigo = new ValidarCodigoViewModel(Navigation);
+        BindingContext = validarCodigo;
         AsignarEventos();
     }
-
+    
     private void AsignarEventos()
     {
         Code1.TextChanged += (s, e) => { ErrorLabel.IsVisible = false; MoverFoco(Code1, Code2); };
@@ -17,7 +21,7 @@ public partial class IngresarCodigo : ContentPage
         Code5.TextChanged += (s, e) => { ErrorLabel.IsVisible = false; MoverFoco(Code5, Code6); };
         Code6.TextChanged += (s, e) => { ErrorLabel.IsVisible = false; };
     }
-
+    
     private void MoverFoco(Entry actual, Entry siguiente)
     {
         if (!string.IsNullOrEmpty(actual.Text))
@@ -26,46 +30,26 @@ public partial class IngresarCodigo : ContentPage
         }
     }
 
-    private void ValidarNumero(object sender, TextChangedEventArgs e)
-    {
-        Entry entry = sender as Entry;
-        if (!string.IsNullOrEmpty(entry.Text) && !char.IsDigit(entry.Text.Last()))
-        {
-            entry.Text = "";
-        }
-    }
-
-    private async void Ir_Login(object sender, TappedEventArgs e)
-    {
-        await Navigation.PopToRootAsync();
-    }
-
     private async void ConfirmarCodigo_Clicked(object sender, EventArgs e)
     {
-        string codigoIngresado = (Code1.Text ?? "") + (Code2.Text ?? "") + (Code3.Text ?? "") +
-                                 (Code4.Text ?? "") + (Code5.Text ?? "") + (Code6.Text ?? "");
+        // Concatenamos el código
+        string codigo = Code1.Text + Code2.Text + Code3.Text + Code4.Text + Code5.Text + Code6.Text;
 
-        if (codigoIngresado.Length < 6)
+        if (string.IsNullOrEmpty(codigo) || codigo.Length < 6)
         {
-            ErrorLabel.Text = "Por favor, ingresa los 6 dígitos del código.";
+            // Si no se ha completado el código, mostramos un error
+            ErrorLabel.Text = "Por favor ingresa un código completo.";
             ErrorLabel.IsVisible = true;
             return;
         }
 
-        if (codigoIngresado == "123456") // Reemplaza con tu validación real
-        {
-            ErrorLabel.IsVisible = false;
-            await Navigation.PushAsync(new NuevaContrasena());
-        }
-        else
-        {
-            ErrorLabel.Text = "El código ingresado es incorrecto.";
-            ErrorLabel.IsVisible = true;
-        }
+        // Llamamos al VM para validar el código
+        var viewModel = (ValidarCodigoViewModel)BindingContext;
+        viewModel.Codigoo = codigo; // Asignamos el código al ViewModel
+
+        // Ejecutamos el comando de validación (sin ExecuteAsync)
+        viewModel.ValidarCodigoCommand.Execute(null);  // Usamos Execute() sin Async
     }
 
-    private void ReenviarCodigo_Clicked(object sender, TappedEventArgs e)
-    {
-        DisplayAlert("Código reenviado", "Se ha enviado un nuevo código a tu correo.", "OK");
-    }
+   
 }

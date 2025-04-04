@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace ProyectoIntegradorMVVM.Models {
   public class ValidarCodigoDTO 
   {
+    public string Email { get; set; }
     public string Codigo { get; set; }
   }
 }

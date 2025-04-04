@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:ProyectoIntegradorMVVM.ViewModels"
              x:Class="ProyectoIntegradorMVVM.Views.IngresarCodigo"
-             x:DataType="vm:IngresarCodigo"
+             x:DataType="vm:ValidarCodigoViewModel"
              NavigationPage.HasNavigationBar="False">
 
     <Grid RowDefinitions="Auto, *">
@@ -59,22 +59,22 @@
                              Margin="10,20,10,0">
                     <Entry x:Name="Code1" MaxLength="1" WidthRequest="40" Keyboard="Numeric"
                            HorizontalTextAlignment="Center" FontSize="24" BackgroundColor="Transparent"
-                           TextChanged="ValidarNumero"/>
+                           />
                     <Entry x:Name="Code2" MaxLength="1" WidthRequest="40" Keyboard="Numeric"
                            HorizontalTextAlignment="Center" FontSize="24" BackgroundColor="Transparent"
-                           TextChanged="ValidarNumero"/>
+                           />
                     <Entry x:Name="Code3" MaxLength="1" WidthRequest="40" Keyboard="Numeric"
                            HorizontalTextAlignment="Center" FontSize="24" BackgroundColor="Transparent"
-                           TextChanged="ValidarNumero"/>
+                           />
                     <Entry x:Name="Code4" MaxLength="1" WidthRequest="40" Keyboard="Numeric"
                            HorizontalTextAlignment="Center" FontSize="24" BackgroundColor="Transparent"
-                           TextChanged="ValidarNumero"/>
+                           />
                     <Entry x:Name="Code5" MaxLength="1" WidthRequest="40" Keyboard="Numeric"
                            HorizontalTextAlignment="Center" FontSize="24" BackgroundColor="Transparent"
-                           TextChanged="ValidarNumero"/>
+                           />
                     <Entry x:Name="Code6" MaxLength="1" WidthRequest="40" Keyboard="Numeric"
                            HorizontalTextAlignment="Center" FontSize="24" BackgroundColor="Transparent"
-                           TextChanged="ValidarNumero"/>
+                           />
                 </StackLayout>
 
                 <Button Text="Confirmar Código"
@@ -101,9 +101,25 @@
                        TextColor="White"
                        TextDecorations="Underline">
                     <Label.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="ReenviarCodigo_Clicked"/>
+                        <TapGestureRecognizer Command="{Binding ReenviarCodigoCommand}" />
                     </Label.GestureRecognizers>
                 </Label>
+
+                <!-- Mensaje de éxito -->
+                <Label Text="{Binding MensajeExito}"
+                TextColor="LightGreen"
+                FontSize="14"
+                HorizontalOptions="Center"
+                Margin="0,5,0,0"
+                IsVisible="{Binding MensajeExito, Converter={StaticResource StringNotEmptyConverter}}" />
+
+                <!-- Mensaje de error -->
+                <Label Text="{Binding MensajeError}"
+                TextColor="Salmon"
+                FontSize="14"
+                HorizontalOptions="Center"
+                Margin="0,2,0,0"
+                IsVisible="{Binding MensajeError, Converter={StaticResource StringNotEmptyConverter}}" />
 
                 <!-- Volver al inicio de sesión -->
                 <Label Text="Volver al inicio de sesión"
@@ -112,7 +128,7 @@
                        TextColor="White"
                        TextDecorations="Underline">
                     <Label.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="Ir_Login"/>
+                        <TapGestureRecognizer Command="{Binding IrLoginCommand}"/>
                     </Label.GestureRecognizers>
                 </Label>
 
