@@ -8,7 +8,7 @@ namespace ProyectoIntegradorMVVM
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new RecuperarContrasena());
+            MainPage = new NavigationPage(new InicioSesion());
         }
     }
 }

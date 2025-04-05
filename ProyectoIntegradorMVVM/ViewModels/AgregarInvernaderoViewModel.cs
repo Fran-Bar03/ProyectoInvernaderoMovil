@@ -1,41 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using ProyectoIntegradorMVVM.Clases;
+using ProyectoIntegradorMVVM.Models;
+using ProyectoIntegradorMVVM.Views;
+using System;
+using System.Globalization;
+using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace ProyectoIntegradorMVVM.ViewModels
 {
-    public class AgregarInvernaderoViewModel : INotifyPropertyChanged
+    public class AgregarInvernaderoViewModel : BaseViewModel
     {
-        private string nombreInvernadero;
-        private string nombrePlanta;
-        private string tipoPlanta;
-        private string imagen;
+        private readonly HttpClient _httpclient;
+        private const string ApiUrlAgregarInvernadero = "https://z7zsd20t-5148.usw3.devtunnels.ms/api/Invernadero/CrearInvernadero";
 
-        public string NombreInvernadero
+        private string _nombre;
+        private string _nombrePlanta;
+        private string _tipoPlanta;
+        private string _imagen;
+        private string _minTemperatura;
+        private string _maxTemperatura;
+        private string _minHumedad;
+        private string _maxHumedad;
+
+        public string Nombre
         {
-            get => nombreInvernadero;
+            get => _nombre;
             set
             {
-                if (nombreInvernadero != value)
+                if (_nombre != value)
                 {
-                    nombreInvernadero = value;
-                    OnPropertyChanged(nameof(NombreInvernadero));
+                    _nombre = value;
+                    OnPropertyChanged(nameof(Nombre));
                 }
             }
         }
 
         public string NombrePlanta
         {
-            get => nombrePlanta;
+            get => _nombrePlanta;
             set
             {
-                if (nombrePlanta != value)
+                if (_nombrePlanta != value)
                 {
-                    nombrePlanta = value;
+                    _nombrePlanta = value;
                     OnPropertyChanged(nameof(NombrePlanta));
                 }
             }
@@ -43,12 +53,12 @@ namespace ProyectoIntegradorMVVM.ViewModels
 
         public string TipoPlanta
         {
-            get => tipoPlanta;
+            get => _tipoPlanta;
             set
             {
-                if (tipoPlanta != value)
+                if (_tipoPlanta != value)
                 {
-                    tipoPlanta = value;
+                    _tipoPlanta = value;
                     OnPropertyChanged(nameof(TipoPlanta));
                 }
             }
@@ -56,35 +66,149 @@ namespace ProyectoIntegradorMVVM.ViewModels
 
         public string Imagen
         {
-            get => imagen;
+            get => _imagen;
             set
             {
-                if (imagen != value)
+                if (_imagen != value)
                 {
-                    imagen = value;
+                    _imagen = value;
                     OnPropertyChanged(nameof(Imagen));
                 }
             }
         }
 
-        public ICommand AgregarCommand { get; }
+        public string MinTemperatura
+        {
+            get => _minTemperatura;
+            set
+            {
+                if (_minTemperatura != value)
+                {
+                    _minTemperatura = value;
+                    OnPropertyChanged(nameof(MinTemperatura));
+                }
+            }
+        }
+
+        public string MaxTemperatura
+        {
+            get => _maxTemperatura;
+            set
+            {
+                if (_maxTemperatura != value)
+                {
+                    _maxTemperatura = value;
+                    OnPropertyChanged(nameof(MaxTemperatura));
+                }
+            }
+        }
+
+        public string MinHumedad
+        {
+            get => _minHumedad;
+            set
+            {
+                if (_minHumedad != value)
+                {
+                    _minHumedad = value;
+                    OnPropertyChanged(nameof(MinHumedad));
+                }
+            }
+        }
+
+        public string MaxHumedad
+        {
+            get => _maxHumedad;
+            set
+            {
+                if (_maxHumedad != value)
+                {
+                    _maxHumedad = value;
+                    OnPropertyChanged(nameof(MaxHumedad));
+                }
+            }
+        }
+
+        public ICommand AgregarInvernaderoCommand { get; }
 
         public AgregarInvernaderoViewModel()
         {
-            AgregarCommand = new Command(AgregarInvernadero);
+            _httpclient = new HttpClient();
+            AgregarInvernaderoCommand = new Command(async () => await AgregarInvernadero());
+
         }
 
-        private void AgregarInvernadero()
+        private async Task AgregarInvernadero()
         {
-            // Aquí iría la lógica para agregar el invernadero, como guardarlo en la base de datos
-            Application.Current.MainPage.DisplayAlert("Éxito", "Invernadero agregado correctamente", "OK");
+            try
+            {
+                decimal ParseDecimal(string value)
+                {
+                    if (string.IsNullOrEmpty(value)) return 0;
+
+                    // Reemplaza comas por puntos para un parsing consistente
+                    value = value.Replace(",", ".");
+
+                    if (decimal.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal result))
+                        return result;
+
+                    return 0; // Valor por defecto si el parsing falla
+                }
+
+                var NuevoInvernadero = new InvernaderoModel
+                {
+                    Nombre = _nombre,
+                    NombrePlanta = _nombrePlanta,
+                    TipoPlanta = _tipoPlanta,
+                    Imagen = _imagen,
+                    MinTemperatura = ParseDecimal(_minTemperatura),
+                    MaxTemperatura = ParseDecimal(_maxTemperatura),
+                    MinHumedad = ParseDecimal(_minHumedad),
+                    MaxHumedad = ParseDecimal(_maxHumedad)
+                };
+
+                // Configuración para asegurar que el JSON use puntos
+                var options = new JsonSerializerOptions
+                {
+                    NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowNamedFloatingPointLiterals,
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                    WriteIndented = true
+                };
+
+
+                var Json = JsonSerializer.Serialize(NuevoInvernadero,options);
+                Console.WriteLine($"JSON enviado: {Json}"); // Para depuración
+                var Contenido = new StringContent(Json, Encoding.UTF8, "application/json");
+
+                var Response = await _httpclient.PostAsync(ApiUrlAgregarInvernadero, Contenido);
+                if (Response.IsSuccessStatusCode)
+                {
+                     Application.Current.MainPage.DisplayAlert("Éxito", "Invernadero agregado", "OK");
+                    LimpiarCampos();
+                    Application.Current.MainPage = new NavigationPage(new PantallaPrincipal());
+
+                }
+                else
+                {
+                    Application.Current.MainPage.DisplayAlert("Error", "Fallo en la API", "OK");
+                }
+            }
+            catch (Exception ex)
+            {
+                Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+            }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged(string propertyName)
+        private void LimpiarCampos()
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            Nombre = string.Empty;
+            NombrePlanta = string.Empty;
+            TipoPlanta = string.Empty;
+            Imagen = string.Empty;
+            MinTemperatura = string.Empty;
+            MaxTemperatura = string.Empty;
+            MinHumedad = string.Empty;
+            MaxHumedad = string.Empty;
         }
     }
 }
