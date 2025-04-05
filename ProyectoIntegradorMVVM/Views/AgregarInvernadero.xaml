@@ -111,7 +111,7 @@
                     <Entry Text="{Binding MinTemperatura}"
                            Placeholder="Temperatura mínima (ej. 25.5)"
                            PlaceholderColor="Black"
-                           Keyboard="Decimal"
+                           Keyboard="Numeric"
                            HeightRequest="50"
                            Margin="30,0,0,0"/>
                 </Grid>
@@ -126,7 +126,7 @@
                     <Entry Text="{Binding MaxTemperatura}"
                            Placeholder="Temperatura máxima (ej. 30.0)"
                            PlaceholderColor="Black"
-                           Keyboard="Decimal"
+                           Keyboard="Numeric"
                            HeightRequest="50"
                            Margin="30,0,0,0"/>
                 </Grid>
@@ -141,7 +141,7 @@
                     <Entry Text="{Binding MinHumedad}"
                            Placeholder="Humedad mínima (ej. 60.5)"
                            PlaceholderColor="Black"
-                           Keyboard="Decimal"
+                           Keyboard="Numeric"
                            HeightRequest="50"
                            Margin="30,0,0,0"/>
                 </Grid>
@@ -156,7 +156,7 @@
                     <Entry Text="{Binding MaxHumedad}"
                            Placeholder="Humedad máxima (ej. 80.0)"
                            PlaceholderColor="Black"
-                           Keyboard="Decimal"
+                           Keyboard="Numeric"
                            HeightRequest="50"
                            Margin="30,0,0,0"/>
                 </Grid>

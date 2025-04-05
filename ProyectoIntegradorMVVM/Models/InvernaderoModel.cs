@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProyectoIntegradorMVVM.Models
 {
-    internal class InvernaderoModel
+    public class InvernaderoModel
     {
         public string Nombre { get; set; }
         public string NombrePlanta { get; set; }

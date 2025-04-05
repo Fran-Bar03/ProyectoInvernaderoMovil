@@ -6,10 +6,6 @@
              BackgroundColor="White"
              NavigationPage.HasNavigationBar="False">
 
-    <ContentPage.BindingContext>
-        <vm:DetalleInvernaderoViewModel />
-    </ContentPage.BindingContext>
-
     <ScrollView>
         <VerticalStackLayout Padding="25" Spacing="20" BackgroundColor="White">
 
@@ -75,7 +71,7 @@
                             <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
                                 <Image Source="bombillaencendida.png" HeightRequest="50" WidthRequest="50"/>
                                 <Label Text="Iluminación" TextColor="White" FontSize="16" HorizontalTextAlignment="Center"/>
-                                <Switch x:Name="LightingSwitch" Toggled="OnControlToggled" IsToggled="True"/>
+                                <Switch x:Name="LightingSwitch"  IsToggled="True"/>
                             </VerticalStackLayout>
                         </Frame>
                         
@@ -84,7 +80,7 @@
                             <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
                                 <Image Source="termometroencendido.png" HeightRequest="50" WidthRequest="50"/>
                                 <Label Text="Temperatura" TextColor="White" FontSize="16" HorizontalTextAlignment="Center"/>
-                                <Switch x:Name="TemperatureSwitch" Toggled="OnControlToggled"/>
+                                <Switch x:Name="TemperatureSwitch" />
                             </VerticalStackLayout>
                         </Frame>
 
@@ -93,7 +89,7 @@
                             <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
                                 <Image Source="riego.png" HeightRequest="50" WidthRequest="50"/>
                                 <Label Text="Riego" TextColor="White" FontSize="16" HorizontalTextAlignment="Center"/>
-                                <Switch x:Name="WateringSwitch" Toggled="OnControlToggled"/>
+                                <Switch x:Name="WateringSwitch" />
                             </VerticalStackLayout>
                         </Frame>
 
@@ -102,7 +98,7 @@
                             <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
                                 <Image Source="ventilador.png" HeightRequest="50" WidthRequest="50"/>
                                 <Label Text="Ventilación" TextColor="White" FontSize="16" HorizontalTextAlignment="Center"/>
-                                <Switch x:Name="VentilationSwitch" Toggled="OnControlToggled"/>
+                                <Switch x:Name="VentilationSwitch" />
                             </VerticalStackLayout>
                         </Frame>
                     </Grid>

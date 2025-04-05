@@ -8,7 +8,7 @@ namespace ProyectoIntegradorMVVM.Models {
   public class UsuarioModel 
   {
     public string UsuarioId { get; set; }
-    public string Nombre { get; set; }
+    public string NombreCompleto { get; set; }
     public string Email { get; set; }
     public string Contrasena { get; set; }
     public int Rol { get; set; }

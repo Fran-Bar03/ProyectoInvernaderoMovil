@@ -15,6 +15,7 @@ namespace ProyectoIntegradorMVVM.ViewModels
     {
         private readonly HttpClient _httpclient;
         private const string ApiUrlAgregarInvernadero = "https://z7zsd20t-5148.usw3.devtunnels.ms/api/Invernadero/CrearInvernadero";
+        private readonly PantallaPrincipalViewModel _pantallaPrincipalViewModel;
 
         private string _nombre;
         private string _nombrePlanta;
@@ -131,11 +132,11 @@ namespace ProyectoIntegradorMVVM.ViewModels
 
         public ICommand AgregarInvernaderoCommand { get; }
 
-        public AgregarInvernaderoViewModel()
+        public AgregarInvernaderoViewModel(PantallaPrincipalViewModel pantallaPrincipalViewModel)
         {
             _httpclient = new HttpClient();
             AgregarInvernaderoCommand = new Command(async () => await AgregarInvernadero());
-
+            _pantallaPrincipalViewModel = pantallaPrincipalViewModel;
         }
 
         private async Task AgregarInvernadero()
@@ -185,6 +186,7 @@ namespace ProyectoIntegradorMVVM.ViewModels
                 {
                      Application.Current.MainPage.DisplayAlert("Éxito", "Invernadero agregado", "OK");
                     LimpiarCampos();
+                    await _pantallaPrincipalViewModel.CargarInvernaderos();
                     Application.Current.MainPage = new NavigationPage(new PantallaPrincipal());
 
                 }

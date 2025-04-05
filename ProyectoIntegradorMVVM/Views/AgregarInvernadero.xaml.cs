@@ -4,10 +4,10 @@ namespace ProyectoIntegradorMVVM.Views;
 
 public partial class AgregarInvernadero : ContentPage
 {
-	public AgregarInvernadero()
+	public AgregarInvernadero(PantallaPrincipalViewModel pantallaPrincipalViewModel )
 	{
 		InitializeComponent();
-		AgregarInvernaderoViewModel viewModel = new AgregarInvernaderoViewModel();
+		AgregarInvernaderoViewModel viewModel = new AgregarInvernaderoViewModel(pantallaPrincipalViewModel);
 		BindingContext = viewModel;
 	}
 }

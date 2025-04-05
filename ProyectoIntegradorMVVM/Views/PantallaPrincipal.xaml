@@ -1,96 +1,105 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:ProyectoIntegradorMVVM.ViewModels"
              x:Class="ProyectoIntegradorMVVM.Views.PantallaPrincipal"
-             xmlns:vm="clr-namespace:ProyectoIntegradorMVVM.ViewModels"
-             Title="PantallaPrincipal"
+             Title="Inicio"
              NavigationPage.HasNavigationBar="False">
 
-    <ContentPage.BindingContext>
-        <vm:PantallaPrincipalViewModel />
-    </ContentPage.BindingContext>
-
-    <ScrollView>
-        <Grid RowDefinitions="Auto, *, Auto">
-            <!-- Sección superior con curva -->
-            <Frame HeightRequest="300"
+    <Grid RowDefinitions="Auto, *, Auto">
+        <!-- Encabezado con nombre y fecha -->
+        <Frame HeightRequest="180"
                CornerRadius="30"
-               Margin="0,-50,0,0"
-               Padding="40,50,30,30"
-               HorizontalOptions="FillAndExpand"
+               Margin="0,-20,0,20"
+               Padding="20,50,20,20"
                BackgroundColor="#556B2F">
-                <VerticalStackLayout>
+            <VerticalStackLayout>
+                <!-- Nombre del usuario -->
+                <Label Text="{Binding NombreCompleto}"
+                       FontSize="28"
+                       TextColor="White"
+                       FontAttributes="Bold"/>
 
-                    <Label/>
-                    <Label/>
-                    <Label Text="¡Hola, Nicol!" FontSize="28" TextColor="White" FontAttributes="Bold"/>
-                    <Label Text="Martes, 04 Marzo 2025" FontSize="14" TextColor="White"/>
-                    
-                    <!-- Barra de búsqueda  -->
-                    <Frame BackgroundColor="White" CornerRadius="20" Padding="10" Margin="0,15,0,0">
-                        <HorizontalStackLayout>
-                            <Label></Label>
-                            <Image Source="https://i.ibb.co/spdVDQLM/image.png" WidthRequest="20" HeightRequest="20" />
-                            <Entry Placeholder="Buscar invernadero..." TextColor="#8F9779" PlaceholderColor="Gray"/>
-                            <Button Text="Buscar" BackgroundColor="#6C8064" TextColor="White" CornerRadius="10" WidthRequest="0"/>
-                        </HorizontalStackLayout>
-                    </Frame>
-                </VerticalStackLayout>
-            </Frame>
-
-            <!-- Contenido principal -->
-            <VerticalStackLayout Grid.Row="1" Padding="20">
-                <HorizontalStackLayout Margin="0,0,0,10">
-                    <Label Text="Tus Invernaderos" FontSize="22" TextColor="#556B2F" FontAttributes="Bold"/>
-                </HorizontalStackLayout>
-
-                <!-- Lista de invernaderos -->
-                <VerticalStackLayout Spacing="15">
-                    <Frame BackgroundColor="#EEF5E1" CornerRadius="20" Padding="15" BorderColor="#556B2F" HasShadow="True">
-                        <VerticalStackLayout>
-                            <Image Source="https://i.ibb.co/v6KRDrCT/tomate.jpg" HeightRequest="150" Aspect="AspectFill" />
-                            <Label Text="Invernadero 1" FontSize="18" TextColor="#556B2F" FontAttributes="Bold"/>
-                            <Label Text="Tomate" FontSize="16" TextColor="#8F9779"/>
-                            <Label Text="Ciudad Obregón, Sonora" FontSize="14" TextColor="#556B2F"/>
-                            <Button Text="Ver Detalles" BackgroundColor="#6C8064" TextColor="White" CornerRadius="10" Padding="10" Clicked="Ir_Detalle"/>
-                        </VerticalStackLayout>
-                    </Frame>
-
-                    <Frame BackgroundColor="#EEF5E1" CornerRadius="20" Padding="15" BorderColor="#556B2F" HasShadow="True">
-                        <VerticalStackLayout>
-                            <Image Source="https://i.ibb.co/jZ3btYzK/lechuga.jpg" HeightRequest="150" Aspect="AspectFill"/>
-                            <Label Text="Invernadero 2" FontSize="18" TextColor="#556B2F" FontAttributes="Bold"/>
-                            <Label Text="Lechuga" FontSize="16" TextColor="#8F9779"/>
-                            <Label Text="Ciudad Obregón, Sonora" FontSize="14" TextColor="#556B2F"/>
-                            <Button Text="Ver Detalles" BackgroundColor="#6C8064" TextColor="White" CornerRadius="10" Padding="10"/>
-                        </VerticalStackLayout>
-                    </Frame>
-
-                    <Frame BackgroundColor="#EEF5E1" CornerRadius="20" Padding="15" BorderColor="#556B2F" HasShadow="True">
-                        <VerticalStackLayout>
-                            <Image Source="https://i.ibb.co/v6KRDrCT/tomate.jpg" HeightRequest="150" Aspect="AspectFill"/>
-                            <Label Text="Invernadero 3" FontSize="18" TextColor="#556B2F" FontAttributes="Bold"/>
-                            <Label Text="Tomate" FontSize="16" TextColor="#8F9779"/>
-                            <Label Text="Ciudad Obregón, Sonora" FontSize="14" TextColor="#556B2F"/>
-                            <Button Text="Ver Detalles" BackgroundColor="#6C8064" TextColor="White" CornerRadius="10" Padding="10"/>
-                        </VerticalStackLayout>
-                    </Frame>
-                </VerticalStackLayout>
+                <!-- Fecha actual -->
+                <Label Text="{Binding FechaActual}"
+                       FontSize="14"
+                       TextColor="White"/>
             </VerticalStackLayout>
+        </Frame>
 
-            <!-- Botón flotante -->
-            <Grid Grid.Row="2" Padding="20">
-                <Button Text="+"
-                    BackgroundColor="#556B2F"
-                    TextColor="White"
-                    FontSize="30"
-                    CornerRadius="50"
-                    WidthRequest="70"
-                    HeightRequest="70"
-                    HorizontalOptions="End"
-                    VerticalOptions="End"
-                    Clicked="Ir_AgregarInvernadero"/>
-            </Grid>
-        </Grid>
-    </ScrollView>
+        <!-- Lista de invernaderos con Pull-to-Refresh -->
+        <RefreshView Grid.Row="1"
+                    IsRefreshing="{Binding IsRefreshing}"
+                    Command="{Binding RefreshCommand}">
+            <CollectionView ItemsSource="{Binding Invernaderos}"
+                           Margin="0,10">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame CornerRadius="15"
+                               Padding="0"
+                               Margin="10"
+                               HasShadow="True"
+                               BorderColor="#EEF5E1">
+                            <Grid RowDefinitions="150, Auto, Auto, Auto" ColumnDefinitions="*, Auto">
+                                <!-- Imagen del invernadero -->
+                                <Image Source="{Binding Imagen}"
+                                       Aspect="AspectFill"
+                                       HeightRequest="150"
+                                       Grid.ColumnSpan="2"/>
+
+                                <!-- Nombre del invernadero -->
+                                <Label Grid.Row="1"
+                                       Text="{Binding Nombre}"
+                                       FontSize="18"
+                                       FontAttributes="Bold"
+                                       TextColor="#556B2F"
+                                       Margin="15,10,15,0"/>
+
+                                <!-- Nombre de la planta (NUEVA POSICIÓN) -->
+                                <Label Grid.Row="2"
+                                       Text="{Binding NombrePlanta}"
+                                       FontSize="14"
+                                       TextColor="#8F9779"
+                                       Margin="15,0,15,0"/>
+
+                                <!-- Tipo de planta -->
+                                <Label Grid.Row="3"
+                                       Text="{Binding TipoPlanta}"
+                                       FontSize="14"
+                                       TextColor="#8F9779"
+                                       Margin="15,0,15,10"/>
+
+                                <!-- Botón "Ver Detalles" -->
+                                <Button Grid.Row="3"
+                                        Grid.Column="1"
+                                        Text="Ver Detalles"
+                                        BackgroundColor="#6B8E23"
+                                        TextColor="White"
+                                        CornerRadius="10"
+                                        Margin="0,0,10,10"
+                                        WidthRequest="120"
+                                        HeightRequest="40"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PantallaPrincipalViewModel}}, Path=VerDetallesCommand}"
+                                        CommandParameter="{Binding .}"/>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+
+        <!-- Botón flotante (+) -->
+        <Button Grid.Row="2"
+                Text="+"
+                BackgroundColor="#556B2F"
+                TextColor="White"
+                FontSize="30"
+                CornerRadius="50"
+                WidthRequest="70"
+                HeightRequest="70"
+                Margin="0,0,20,20"
+                HorizontalOptions="End"
+                VerticalOptions="End"
+                Command="{Binding AgregarInvernaderoCommand}"/>
+    </Grid>
 </ContentPage>

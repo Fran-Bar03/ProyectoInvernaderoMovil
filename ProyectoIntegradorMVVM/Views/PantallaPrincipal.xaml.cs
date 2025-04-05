@@ -1,24 +1,24 @@
+using ProyectoIntegradorMVVM.ViewModels;
+
 namespace ProyectoIntegradorMVVM.Views;
 
 public partial class PantallaPrincipal : ContentPage
 {
-	public PantallaPrincipal()
-	{
-		InitializeComponent();
-	}
-
-
-  protected override bool OnBackButtonPressed () {
-    // Evita que el botón "atrás" cierre la app o navegue a otra pantalla.
-    return true;
-  }
-  private async void Ir_AgregarInvernadero(object sender, EventArgs e)
+    public PantallaPrincipal()
     {
-        await Navigation.PushAsync(new AgregarInvernadero());
+        InitializeComponent();
+        BindingContext = new PantallaPrincipalViewModel(Navigation);
     }
 
-    private async void Ir_Detalle(object sender, EventArgs e)
+
+
+
+    protected override async void OnAppearing()
     {
-        await Navigation.PushAsync(new DetalleInvernadero());
+        base.OnAppearing();
+        if (BindingContext is PantallaPrincipalViewModel viewModel)
+        {
+            await viewModel.ExecuteRefreshCommand(); // Usa el nuevo método de refresh
+        }
     }
 }
