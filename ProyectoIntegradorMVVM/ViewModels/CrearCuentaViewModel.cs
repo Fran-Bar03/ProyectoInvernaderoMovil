@@ -104,7 +104,7 @@ namespace ProyectoIntegradorMVVM.ViewModels {
         Email = _email,
         Contrasena = _contrasena,
       };
-
+            
       var Json = JsonSerializer.Serialize (Usuario);
       var Contenido = new StringContent (Json, Encoding.UTF8, "application/json");
       var Respuesta = await _httpclient.PostAsync (ApiurlRegistro,Contenido);
@@ -135,12 +135,14 @@ namespace ProyectoIntegradorMVVM.ViewModels {
       if (Response.IsSuccessStatusCode) 
       {
         var ResponseContent = await Response.Content.ReadAsStringAsync ();
-        var JsonDoc = JsonDocument.Parse (ResponseContent);
-        string Token = JsonDoc.RootElement.GetProperty("token").GetString();
+        string Token = ResponseContent.Trim ();
 
-        await AuthService.GuardarToken (Token);
-
-        Application.Current.MainPage = new NavigationPage (new PantallaPrincipal ());
+                // Verificar si se recibió un token válido
+                if (!string.IsNullOrEmpty(Token))
+                {
+                    await AuthService.GuardarToken(Token);  // Guardamos el token
+                    Application.Current.MainPage = new NavigationPage(new PantallaPrincipal());  // Redirigimos a la pantalla principal
+                }
       }
       else 
       {
@@ -149,7 +151,7 @@ namespace ProyectoIntegradorMVVM.ViewModels {
 
       }
     }
-
+        
     private async Task IrLogin() 
     {
       await _navigation.PushAsync (new InicioSesion ());

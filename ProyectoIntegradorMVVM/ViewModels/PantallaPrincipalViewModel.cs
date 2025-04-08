@@ -29,7 +29,7 @@ namespace ProyectoIntegradorMVVM.ViewModels
         private ObservableCollection<InvernaderoModel> _invernaderos;
         private INavigation _navigation;
 
-
+        
         public string FechaActual
         {
             get
@@ -127,7 +127,7 @@ namespace ProyectoIntegradorMVVM.ViewModels
         }
 
 
-
+        
         private async void CargarNombre() 
         {
             try
